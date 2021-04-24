@@ -1,0 +1,35 @@
+    * {
+      	font-family: sans-serif;
+      	text-decoration: none;
+    	color: #000;
+    }
+    
+    html {
+    	background: #fff;
+    	
+    }
+    
+    #menu_actual {
+    	padding: 10px;
+    	font-size: 0.7em;
+    	background: #eee;
+    	height: 100%;
+    }
+    
+    #menu_actual a {
+    	background: #eee;
+      	text-decoration: none;
+    }
+    
+    
+    #menu_button {
+    	padding: 0px;
+    	font-size: 1.5em;
+    	font-weight: 900;
+    }
+    
+    .wrap {
+      	position: relative;
+    }
+
+  

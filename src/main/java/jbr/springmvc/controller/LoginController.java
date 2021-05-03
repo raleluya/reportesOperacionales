@@ -1,5 +1,9 @@
 package jbr.springmvc.controller;
 
+import cl.esmax.reportesOperacionales.NuevaTabla5B;
+import cl.esmax.reportesOperacionales.Otras;
+import cl.esmax.reportesOperacionales.T13;
+import cl.esmax.reportesOperacionales.Tablas5By6B;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -30,15 +34,50 @@ public class LoginController {
 
   @RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
   public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response,
-      @ModelAttribute("login") Login login) {
+      @ModelAttribute("login") Login login) 
+  {
     ModelAndView mav = null;
 
     User user = userService.validateUser(login);
 
-    if (null != user) {
+    if (null != user) 
+    {
       mav = new ModelAndView("welcome");
       mav.addObject("firstname", user.getFirstname());
-    } else {
+      
+      /*
+       * APIOBS_AfterUpdate()
+       * 
+            Me!API60 = Api60IntPol(Me!APIOBS, Me!TEMPOBS)
+            Me!FACTOR = FactIntPol(Me!API60, Me!TEMPINT)
+            Me!VOL60 = Round(Me!VOL * Me!FACTOR, 0)
+            Me!FACTOR13 = IFACTOR13(Me!API60)
+            Me!KILOS = Round(Me!VOL60 * Me!FACTOR13, 0)      
+      */
+      NuevaTabla5B tablas5B = new NuevaTabla5B();
+      double API60  = tablas5B.API60(60.0d, 60.0d);
+      Tablas5By6B tablas5By6B = new Tablas5By6B();
+      double FACTOR = tablas5By6B.FactIntPol(API60, 60.0d);
+      
+      double VOL = 0;
+      //double FACTOR = 0;//
+      double VOL60 = Otras.round(VOL * FACTOR, 0);
+      
+      T13 t13 = new T13();
+      double FACTOR13 = t13.FACTOR13(API60);
+      double KILOS = Otras.round(VOL60 * FACTOR13, 0);
+      
+      /*
+      TEMPOBS_AfterUpdate()
+            Me!API60 = Api60IntPol(Me!APIOBS, Me!TEMPOBS)
+            Me!FACTOR = FactIntPol(Me!API60, Me!TEMPINT)
+            Me!VOL60 = Round(Me!VOL * Me!FACTOR, 0)
+            Me!FACTOR13 = IFACTOR13(Me!API60)
+            Me!KILOS = Round(Me!VOL60 * Me!FACTOR13, 0)      
+      */
+    } 
+    else 
+    {
       mav = new ModelAndView("login");
       mav.addObject("message", "Username or Password is wrong!!");
     }

@@ -68,12 +68,13 @@ public class LoginController {
       double KILOS = Otras.round(VOL60 * FACTOR13, 0);
       
       /*
-      TEMPOBS_AfterUpdate()
-            Me!API60 = Api60IntPol(Me!APIOBS, Me!TEMPOBS)
-            Me!FACTOR = FactIntPol(Me!API60, Me!TEMPINT)
-            Me!VOL60 = Round(Me!VOL * Me!FACTOR, 0)
-            Me!FACTOR13 = IFACTOR13(Me!API60)
-            Me!KILOS = Round(Me!VOL60 * Me!FACTOR13, 0)      
+    Private Sub TEMPOBS_AfterUpdate()
+        Me!API60 = Api60IntPol(Me!APIOBS, Me!TEMPOBS)
+        Me!FACTOR = FactIntPol(Me!API60, Me!TEMPINT)
+        Me!VOL60 = Round(Me!VOL * Me!FACTOR, 0)
+        Me!FACTOR13 = IFACTOR13(Me!API60)
+        Me!KILOS = Round(Me!VOL60 * Me!FACTOR13, 0)
+    End Sub
       */
     } 
     else 

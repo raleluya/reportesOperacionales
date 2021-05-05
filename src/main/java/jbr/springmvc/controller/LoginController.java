@@ -38,12 +38,12 @@ public class LoginController {
   {
     ModelAndView mav = null;
 
-    User user = userService.validateUser(login);
+//    User user = userService.validateUser(login);
 
-    if (null != user) 
-    {
+ //   if (null != user) 
+ //   {
       mav = new ModelAndView("welcome");
-      mav.addObject("firstname", user.getFirstname());
+      mav.addObject("firstname", "ESMAX");
       
       /*
        * APIOBS_AfterUpdate()
@@ -54,19 +54,20 @@ public class LoginController {
             Me!FACTOR13 = IFACTOR13(Me!API60)
             Me!KILOS = Round(Me!VOL60 * Me!FACTOR13, 0)      
       */
-      NuevaTabla5B tablas5B = new NuevaTabla5B();
-      double API60  = tablas5B.API60(60.0d, 60.0d);
-      Tablas5By6B tablas5By6B = new Tablas5By6B();
-      double FACTOR = tablas5By6B.FactIntPol(API60, 60.0d);
-      
-      double VOL = 0;
-      //double FACTOR = 0;//
-      double VOL60 = Otras.round(VOL * FACTOR, 0);
-      
-      T13 t13 = new T13();
-      double FACTOR13 = t13.FACTOR13(API60);
-      double KILOS = Otras.round(VOL60 * FACTOR13, 0);
-      
+      {
+        NuevaTabla5B tablas5B = new NuevaTabla5B();
+        double API60  = tablas5B.API60(60.0d, 60.0d);
+        Tablas5By6B tablas5By6B = new Tablas5By6B();
+        double FACTOR = tablas5By6B.FactIntPol(API60, 60.0d);
+
+        double VOL = 0;
+        //double FACTOR = 0;//
+        double VOL60 = Otras.round(VOL * FACTOR, 0);
+
+        T13 t13 = new T13();
+        double FACTOR13 = t13.FACTOR13(API60);
+        double KILOS = Otras.round(VOL60 * FACTOR13, 0);
+      }
       /*
     Private Sub TEMPOBS_AfterUpdate()
         Me!API60 = Api60IntPol(Me!APIOBS, Me!TEMPOBS)
@@ -76,12 +77,59 @@ public class LoginController {
         Me!KILOS = Round(Me!VOL60 * Me!FACTOR13, 0)
     End Sub
       */
-    } 
-    else 
-    {
-      mav = new ModelAndView("login");
-      mav.addObject("message", "Username or Password is wrong!!");
-    }
+      {
+        NuevaTabla5B tablas5B = new NuevaTabla5B();
+        double API60  = tablas5B.API60(60.0d, 60.0d);
+        Tablas5By6B tablas5By6B = new Tablas5By6B();
+        double FACTOR = tablas5By6B.FactIntPol(API60, 60.0d);      
+      }
+      
+    /*
+      
+        Private Sub API60_AfterUpdate()
+            Me!FACTOR = FactIntPol(Me!API60, Me!TEMPINT)
+            Me!VOL60 = Round(Me!VOL * Me!FACTOR, 0)
+            Me!FACTOR13 = IFACTOR13(Me!API60)
+            Me!KILOS = Round(Me!VOL60 * Me!FACTOR13, 0)
+        End Sub      
+      
+        Private Sub FACTOR_AfterUpdate()
+            Me!VOL60 = Round(Me!VOL * Me!FACTOR, 0)
+        End Sub
+ 
+        Private Sub FACTOR13_AfterUpdate()
+            Me!KILOS = Round(Me!VOL60 * Me!FACTOR13, 0)
+        End Sub     
+      
+        
+      
+      */      
+    
+    /*
+        Private Sub TEMPINT_AfterUpdate()
+            Me!FACTOR = FactIntPol(Me!API60, Me!TEMPINT)
+            Me!VOL60 = Round(Me!VOL * Me!FACTOR, 0)
+        End Sub    
+    
+    */
+        /*      
+        Private Sub TK_AfterUpdate()
+            If Me!TK = 841976 Then
+                DoCmd.OpenForm "FOR ME"
+                Exit Sub
+            End If
+            Me!VOL = VOLTK(Me!ALT, Me!TK)
+            Me!VOL60 = Round(Me!VOL * Me!FACTOR, 0)
+            Me!KILOS = Round(Me!VOL60 * Me!FACTOR13, 0)
+        End Sub
+        */        
+        
+//    } 
+//    else 
+//    {
+//      mav = new ModelAndView("login");
+//      mav.addObject("message", "Username or Password is wrong!!");
+//    }
 
     return mav;
   }

@@ -5,6 +5,11 @@
  */
 package cl.esmax.reportesOperacionales;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 
 /**
@@ -13,95 +18,112 @@ package cl.esmax.reportesOperacionales;
  */
 public class Tablas5By6B 
 {
-    public double FactIntPol(double API60, double TEMPINT)
+    public double FactIntPol(double API60, double TEMPINT, FileWriter myWriter)
     {
-        double FactIntPol;
-        
-        double A1, A2, A3, A4;
-        double D1, D2, D3, D4;
-        double B1, B2;
-        double DecAPI, DecTemp;
-        DecAPI = API60 - (int)(API60);
-        DecTemp = TEMPINT - (int)(TEMPINT);
-
-        if(!(DecAPI == 0) && !(DecAPI == 0.5))
-        {
-            D1 = Otras.MasBajo(API60);
-            D3 = Otras.MasAlto(API60);
-            D2 = Otras.MasBajo(TEMPINT);
-            {
-                NuevaTabla6B nuevaTabla6B = new NuevaTabla6B();
-                A1 = nuevaTabla6B.FactorApi(D1, D2);                
-            }
-
-            //MsgBox "FactorApi = " & A1
+            double FactIntPol = -11111111111d;
             
-            {
-                NuevaTabla6B nuevaTabla6B = new NuevaTabla6B();            
-                A3 = nuevaTabla6B.FactorApi(D3, D2);
-            }
-            
-            if((!(DecTemp == 0)) && (!(DecTemp == 0.5)))
-            {
-                D4 = Otras.MasAlto(TEMPINT);
+        try {
+            myWriter.write("FactIntPol_INI\n");
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+        }               
 
-                {
-                    NuevaTabla6B nuevaTabla6B = new NuevaTabla6B();                 
-                    A2 = nuevaTabla6B.FactorApi(D1, D4);
-                }
-
-                {
-                    NuevaTabla6B nuevaTabla6B = new NuevaTabla6B();                 
-                    A4 = nuevaTabla6B.FactorApi(D3, D4);
-                }
-
-                B1 = Otras.Interpolar(D2, D4, A1, A2, TEMPINT);
-                B2 = Otras.Interpolar(D2, D4, A3, A4, TEMPINT);
-
-                FactIntPol = Otras.round(Otras.Interpolar(D1, D3, B1, B2, API60), 4); //redondeo decimal 4to
-            }
-            else
+            double A1, A2, A3, A4;
+            double D1, D2, D3, D4;
+            double B1, B2;
+            double DecAPI, DecTemp;
+            DecAPI = API60 - (int)(API60);
+            DecTemp = TEMPINT - (int)(TEMPINT);
+            if(!(DecAPI == 0) && !(DecAPI == 0.5))
             {
-                FactIntPol = Otras.round(Otras.Interpolar(D1, D3, A1, A3, API60), 4); //redondeo decimal 4to
-            }
-        }
-        else
-        {
-            if((!(DecTemp == 0)) && (!(DecTemp == 0.5)))            
-            {
+                D1 = Otras.MasBajo(API60);
+                D3 = Otras.MasAlto(API60);
                 D2 = Otras.MasBajo(TEMPINT);
-                D4 = Otras.MasAlto(TEMPINT);
-                
                 {
-                    NuevaTabla6B nuevaTabla6B = new NuevaTabla6B();                 
-                    A1 = nuevaTabla6B.FactorApi(API60, D2);
+                    NuevaTabla6B nuevaTabla6B = new NuevaTabla6B();
+                    A1 = nuevaTabla6B.FactorApi(D1, D2, myWriter);
                 }
-                
+
                 //MsgBox "FactorApi = " & A1
+                
                 {
-                    NuevaTabla6B nuevaTabla6B = new NuevaTabla6B();                 
-                    A3 = nuevaTabla6B.FactorApi(API60, D4);
+                    NuevaTabla6B nuevaTabla6B = new NuevaTabla6B();
+                    A3 = nuevaTabla6B.FactorApi(D3, D2, myWriter);
                 }
                 
-                FactIntPol = Otras.round(Otras.Interpolar(D2, D4, A1, A3, TEMPINT), 4); //redondeo decimal 4to
+                if((!(DecTemp == 0)) && (!(DecTemp == 0.5)))
+                {
+                    D4 = Otras.MasAlto(TEMPINT);
+                    
+                    {
+                        NuevaTabla6B nuevaTabla6B = new NuevaTabla6B();
+                        A2 = nuevaTabla6B.FactorApi(D1, D4, myWriter);
+                    }
+                    
+                    {
+                        NuevaTabla6B nuevaTabla6B = new NuevaTabla6B();
+                        A4 = nuevaTabla6B.FactorApi(D3, D4, myWriter);
+                    }
+                    
+                    B1 = Otras.Interpolar(D2, D4, A1, A2, TEMPINT);
+                    B2 = Otras.Interpolar(D2, D4, A3, A4, TEMPINT);
+                    
+                    FactIntPol = Otras.round(Otras.Interpolar(D1, D3, B1, B2, API60), 4); //redondeo decimal 4to
+                }
+                else
+                {
+                    FactIntPol = Otras.round(Otras.Interpolar(D1, D3, A1, A3, API60), 4); //redondeo decimal 4to
+                }
             }            
             else
             {
+                if((!(DecTemp == 0)) && (!(DecTemp == 0.5)))
                 {
-                    NuevaTabla6B nuevaTabla6B = new NuevaTabla6B();                  
-                    FactIntPol = nuevaTabla6B.FactorApi(API60, TEMPINT);
+                    D2 = Otras.MasBajo(TEMPINT);
+                    D4 = Otras.MasAlto(TEMPINT);
+                    
+                    {
+                        NuevaTabla6B nuevaTabla6B = new NuevaTabla6B();
+                        A1 = nuevaTabla6B.FactorApi(API60, D2, myWriter);
+                    }
+                    
+                    //MsgBox "FactorApi = " & A1
+                    {
+                    NuevaTabla6B nuevaTabla6B = new NuevaTabla6B();
+                    A3 = nuevaTabla6B.FactorApi(API60, D4, myWriter);
                 }
-                //MsgBox "FactorApi = " & FactIntPol
-            }
+                    
+                    FactIntPol = Otras.round(Otras.Interpolar(D2, D4, A1, A3, TEMPINT), 4); //redondeo decimal 4to
+                }
+                else
+                {
+                    {
+                        NuevaTabla6B nuevaTabla6B = new NuevaTabla6B();
+                        FactIntPol = nuevaTabla6B.FactorApi(API60, TEMPINT, myWriter);
+                    }
+                    //MsgBox "FactorApi = " & FactIntPol
+                }
+            }   
+            
+         try {                  
+            myWriter.write("\nFactIntPol_FIN");
+            myWriter.write("\nFactIntPol=" + FactIntPol);
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return FactIntPol;
+            return FactIntPol;
     }
 
 
-    double Api60IntPol(double APIOBS, double TEMPOBS)
+    public double Api60IntPol(double APIOBS, double TEMPOBS, FileWriter myWriter)
     {
-        double Api60IntPol;
+        double Api60IntPol = -1111111111111d;
+        
+        try {
+            myWriter.write("Api60IntPol_INI\n");
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+        }          
 
         double A1, A2, A3, A4;
         double D1, D2, D3, D4;
@@ -118,14 +140,14 @@ public class Tablas5By6B
             
             {
                 NuevaTabla5B nuevaTabla5b = new NuevaTabla5B();
-                A1 = nuevaTabla5b.API60(D1, D2);
+                A1 = nuevaTabla5b.API60(D1, D2, myWriter);
             }
 
             //MsgBox "API60 = " & A1
 
             {
                 NuevaTabla5B nuevaTabla5b = new NuevaTabla5B();
-                A3 = nuevaTabla5b.API60(D3, D2);
+                A3 = nuevaTabla5b.API60(D3, D2, myWriter);
             }
             
             if(!(DecTemp == 0) && !(DecTemp == 0.5))
@@ -134,12 +156,12 @@ public class Tablas5By6B
 
                 {
                     NuevaTabla5B nuevaTabla5b = new NuevaTabla5B();
-                    A2 = nuevaTabla5b.API60(D1, D4);
+                    A2 = nuevaTabla5b.API60(D1, D4, myWriter);
                 }
                 
                 {
                     NuevaTabla5B nuevaTabla5b = new NuevaTabla5B();
-                    A4 = nuevaTabla5b.API60(D3, D4);
+                    A4 = nuevaTabla5b.API60(D3, D4, myWriter);
                 }
 
                 B1 = Otras.Interpolar(D2, D4, A1, A2, TEMPOBS);
@@ -162,12 +184,12 @@ public class Tablas5By6B
                 
                 {
                     NuevaTabla5B nuevaTabla5b = new NuevaTabla5B();
-                    A1 = nuevaTabla5b.API60(APIOBS, D2);
+                    A1 = nuevaTabla5b.API60(APIOBS, D2, myWriter);
                 }                
 
                 {
                     NuevaTabla5B nuevaTabla5b = new NuevaTabla5B();
-                    A3 = nuevaTabla5b.API60(APIOBS, D4);
+                    A3 = nuevaTabla5b.API60(APIOBS, D4, myWriter);
                 }                 
 
                 Api60IntPol = Math.round(Otras.Interpolar(D2, D4, A1, A3, TEMPOBS));
@@ -175,10 +197,16 @@ public class Tablas5By6B
             else
             {
                 NuevaTabla5B nuevaTabla5b = new NuevaTabla5B();
-                Api60IntPol = nuevaTabla5b.API60(APIOBS, TEMPOBS);
+                Api60IntPol = nuevaTabla5b.API60(APIOBS, TEMPOBS, myWriter);
             }
 
-        }       
+        }    
+        try {
+            myWriter.write("\nApi60IntPol_FIN");            
+            myWriter.write("\nApi60IntPol=" + Api60IntPol);
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return Api60IntPol;
     }
     

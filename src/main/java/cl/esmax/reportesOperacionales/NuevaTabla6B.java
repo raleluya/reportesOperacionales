@@ -5,12 +5,20 @@
  */
 package cl.esmax.reportesOperacionales;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Rodrigo
  */
 public class NuevaTabla6B 
 {
+    FileWriter myWriter;
+    
+    
     private long NBP1, NBP2, NBP3, NBP4;
     private long IBP1, IBP2;
     private long ITMP1, ITMP2, ITMP3;
@@ -35,8 +43,16 @@ public class NuevaTabla6B
     private double FactorApi;
 
 
-    double FactorApi(double API60, double Degf) 
+    double FactorApi(double API60, double Degf, FileWriter myWriter) 
     {
+        this.myWriter = myWriter;
+        
+        try {
+            myWriter.write("FactorApi_INI\n");
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        
         
         NBP1 = 370;
         NBP2 = 480;
@@ -64,7 +80,7 @@ public class NuevaTabla6B
         VCFP = -1;
         FactorApi = VCFP;
 
-        IAPI = ((int)(API60 * 10 + 0.5));
+        IAPI = (int)(API60 * 10 + 0.5);
         //MsgBox "1:API60 = " & IAPI
         API60 = (int)IAPI / 10;
         ITEMP = (int)(Degf * 10 + 0.5);
@@ -102,18 +118,38 @@ public class NuevaTabla6B
         //{
         //    Line100();
         //}  
-        
+
+         try {           
+            myWriter.write("\nFactorApi=" + FactorApi);
+            myWriter.write("\nFactorApi=" + FactorApi);
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+         
         return FactorApi;
     }
     
     public void Line10()
     {
+         try {           
+            myWriter.write("\nLine10");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+        
         //MsgBox "Return10"
         retornoFuncion = true;        
     }
     
     public void Line20()
     {
+         try {           
+            myWriter.write("\nLine20");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+         
+        
         if ((IAPI - NBP1) > 0)
         {
             //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
@@ -141,6 +177,12 @@ public class NuevaTabla6B
     
     public void Line40()
     {
+         try {           
+            myWriter.write("\nLine40");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+         
         if ((IAPI - NBP2) >= 0)
         {
             //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
@@ -168,6 +210,12 @@ public class NuevaTabla6B
     
     public void Line60()
     {
+         try {           
+            myWriter.write("\nLine60");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+         
         if ((IAPI - NBP3) > 0)
         {
             //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
@@ -194,6 +242,12 @@ public class NuevaTabla6B
     
     public void Line75()
     {
+         try {           
+            myWriter.write("\nLine75");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+         
         if ((IAPI - NBP4) > 0)
         {
             //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
@@ -215,6 +269,12 @@ public class NuevaTabla6B
     
     public void Line80()
     {
+         try {           
+            myWriter.write("\nLine80");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+         
         if ((ITEMP) >= 0)
         {
             //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
@@ -234,12 +294,24 @@ public class NuevaTabla6B
     
     public void Line90()
     {
+         try {           
+            myWriter.write("\nLine90");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+         
         //MsgBox "Return90"
         retornoFuncion = true;
     }
     
     public void Line100()
     {
+         try {           
+            myWriter.write("\nLine100");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        }         
+        
         if ((IAPI - IBP1) > 0)
         {
             //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
@@ -277,6 +349,13 @@ public class NuevaTabla6B
     
     public void Line120()
     {
+         try {           
+            myWriter.write("\nLine120");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        }          
+        
+        
         if ((IAPI - IBP2) > 0)
         {
             //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
@@ -315,6 +394,12 @@ public class NuevaTabla6B
     
     public void Line140()
     {
+          try {           
+            myWriter.write("\nLine140");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        }         
+        
         if ((ITEMP - ITMP3) > 0)
         {
             //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
@@ -334,6 +419,14 @@ public class NuevaTabla6B
     
     public void Line150()
     {
+        
+          try {           
+            myWriter.write("\nLine150");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+          
+          
         IRHO = RHOB(IAPI);
         //MsgBox "2:RHO = " & IRHO
         //MsgBox "3:K0 = " & K0
@@ -372,6 +465,12 @@ public class NuevaTabla6B
     
     public void Line155()
     {
+          try {           
+            myWriter.write("\nLine155");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        }         
+        
         IALF = ALPHAB(IRHO, K0, K1);
         //MsgBox "4C:ALFA = " & IALF
         //MsgBox "5:DELTA = " & IDT
@@ -385,27 +484,33 @@ public class NuevaTabla6B
     
     public void Line158()
     {
-                IVCF = VCF6B(IALF, IDT);
-                //MsgBox "6B:VCF = " & IVCF
-                IFLAG = 0;
-                if ((IAPI - IBP1) > 0)
-                {
-                    //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
-                    //GoTo Line170;
-                    if(!retornoFuncion)
-                    {
-                        Line170();
-                    }                      
-                }
-                if ((ITEMP - IEP1) <= 0)
-                {
-                    //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
-                    //GoTo Line200;
-                    if(!retornoFuncion)
-                    {
-                        Line200();
-                    } 
-                }
+          try {           
+            myWriter.write("\nLine158");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+          
+        IVCF = VCF6B(IALF, IDT);
+        //MsgBox "6B:VCF = " & IVCF
+        IFLAG = 0;
+        if ((IAPI - IBP1) > 0)
+        {
+            //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
+            //GoTo Line170;
+            if(!retornoFuncion)
+            {
+                Line170();
+            }                      
+        }
+        if ((ITEMP - IEP1) <= 0)
+        {
+            //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
+            //GoTo Line200;
+            if(!retornoFuncion)
+            {
+                Line200();
+            } 
+        }
 
         //Line165:
         if(!retornoFuncion)
@@ -416,6 +521,12 @@ public class NuevaTabla6B
     
     public void Line165()
     {
+          try {           
+            myWriter.write("\nLine165");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+          
         IFLAG = 1;
         //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
         //GoTo Line200;
@@ -433,6 +544,13 @@ public class NuevaTabla6B
     
     public void Line170()
     {
+          try {           
+            myWriter.write("\nLine170");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+          
+          
         if ((IAPI - IBP2) > 0)
         {
             //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
@@ -470,6 +588,12 @@ public class NuevaTabla6B
     
     public void Line190()
     {
+          try {           
+            myWriter.write("\nLine190");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        }         
+        
         if ((ITEMP - IEP3) > 0)
         {
             //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
@@ -490,6 +614,12 @@ public class NuevaTabla6B
     
     public void Line200()
     {
+          try {           
+            myWriter.write("\nLine200");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+          
         JVCF =  (int)
                 (
                     ( 
@@ -545,6 +675,12 @@ public class NuevaTabla6B
     
     public void Line250()
     {
+          try {           
+            myWriter.write("\nLine250");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
         VCFP = PVCF;
         VCFC = CVCF;
         FactorApi = VCFP;
@@ -554,6 +690,12 @@ public class NuevaTabla6B
     
     public void Line220()
     {
+          try {           
+            myWriter.write("\nLine220");
+        } catch (IOException ex) {
+            Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
         CVCF = PVCF;       
     }
     
@@ -629,7 +771,7 @@ public class NuevaTabla6B
         double IRES2;
 
         IRES1 = (int)(AAA / BBB);
-        IRES2 = ((int)((AAA - IRES1 * BBB) * 10000 / BBB));
+        IRES2 = (int)((AAA - IRES1 * BBB) * 10000 / BBB);
         double SDIVB = IRES1 * 10000 + IRES2;
         return SDIVB;
     }
@@ -638,7 +780,7 @@ public class NuevaTabla6B
     {
         double IDENOM;
         IDENOM = AAA + 1315;
-        double RHOB = ((int)((int)(1413601980 / IDENOM)) + 5 / 10);
+        double RHOB = (int)(((int)(1413601980 / IDENOM)) + 5 / 10);
         return RHOB;
     }
 }

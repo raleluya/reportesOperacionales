@@ -5,6 +5,11 @@
  */
 package cl.esmax.reportesOperacionales;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Rodrigo
@@ -55,8 +60,17 @@ public class NuevaTabla5B
     double API60;                           //INVENTADO   
     boolean retornoFuncion = false;         //INVENTADO
       
-    public double API60(double Api, double Degf) 
+    FileWriter archivo;                     //Inventado para seguimiento
+    
+    public double API60(double Api, double Degf, FileWriter archivo)
     {
+        this.archivo = archivo;
+        
+        try {
+            archivo.write("API60_INI\n");
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         IHydro = 0;
         IBASE = 600;
@@ -87,35 +101,50 @@ public class NuevaTabla5B
         IB = 14890670;
         KONST = 1413601980;
 
-        IAPI = (int)Math.floor((double)(((Api * 100) + 5) / 10));
-        Api = (int)Math.floor((double)IAPI) / 10.0; //Supone FLOAT = INT
+        IAPI = (int)(((Api * 100) + 5) / 10);
+        Api = ((int)(IAPI)) / 10.0; //Supone FLOAT = INT
         //MsgBox "1:API =" & Api
 
                 if (Degf < 0)
                 {
-                    //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
-                    //Line1200:
-                    if(!retornoFuncion)
-                    {
-                        Line1200();
+                    try {
+                        archivo.write("\nDegf < 0");
+                        //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
+                        //Line1200:
+                        if(!retornoFuncion)
+                        {
+                            Line1200();
+                        }
+                    } catch (IOException ex) {
+                        Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
 
-                IT = (int)Math.floor((double)(((Degf * 100) + 5) / 10));
-                Degf = (int)Math.floor((double)IT) / 10.0;
+                IT = (int)(((Degf * 100) + 5) / 10);
+                Degf = ((int)(IT)) / 10;
                 //MsgBox "1:T =" & Degf
 
                 if (IAPI < 0)
                 {
-                    //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
-                    //GoTo Line1200;
-                    if(!retornoFuncion)
-                    {
-                        Line1200();
+                    try {
+                        archivo.write("\nIAPI < 0");
+                        //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
+                        //GoTo Line1200;
+                        if(!retornoFuncion)
+                        {
+                            Line1200();
+                        }
+                    } catch (IOException ex) {
+                        Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 if ((IAPI - NBP1) > 0)
                 {
+                            try {                    
+                                archivo.write("\n(IAPI - NBP1) > 0");
+                            } catch (IOException ex) {
+                                Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                     //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
                     //GoTo Line1200;
                     if(!retornoFuncion)
@@ -125,15 +154,25 @@ public class NuevaTabla5B
                 }
                 if ((IAPI - IBP1) > 0)
                 {
-                    //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
-                    //GoTo Line70;
-                    if(!retornoFuncion)
-                    {
-                        Line70();
-                    }                        
+                        try {
+                            archivo.write("\n(IAPI - IBP1) > 0");
+                            //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
+                            //GoTo Line70;
+                            if(!retornoFuncion)
+                            {
+                                Line70();                        
+                            }
+                        } catch (IOException ex) {
+                            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                 }
                 if ((IT - ITMP1) > 0)
                 {
+                            try {                    
+                                archivo.write("\n(IT - ITMP1) > 0");
+                            } catch (IOException ex) {
+                                Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                     //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
                     //GoTo Line1200;
                     if(!retornoFuncion)
@@ -158,12 +197,23 @@ public class NuevaTabla5B
             Line70();
         }    
 
+        try {        
+            archivo.write("\nAPI60=" + API60);
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+        }        
 
             return API60;
         }
 
     public void Line70()
     {
+        try {        
+            archivo.write("\nLine70");
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         if ((IAPI - IBP2) > 0)
         {
             //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
@@ -202,6 +252,12 @@ public class NuevaTabla5B
 
     public void Line90()
     {
+        try {        
+            archivo.write("\nLine90");
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         if ((IT - ITMP3) > 0)
         {
             //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
@@ -230,6 +286,12 @@ public class NuevaTabla5B
 
     public void Line100()
     {
+        try {        
+            archivo.write("\nLine100");
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         IFLAG = 0;
         IDT = IT - IBASE;
         //MsgBox "2:DELTA = " & IDT
@@ -257,16 +319,23 @@ public class NuevaTabla5B
 
     public void Line110()
     {
-        IH1 = (int)Math.floor((double)((127800 * IDT + IRD) / 100));
+        try {        
+            archivo.write("\nLine110");
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+        IH1 = (int)((127800 * IDT + IRD) / 100);
         //MsgBox "3:TERM1 = " & IH1
-        IH2 = (int)Math.floor((double)((62 * IDT * IDT + 500) / 1000));
+        IH2 = (int)((62 * IDT * IDT + 500) / 1000);
         //MsgBox "3:TERM2 = " & IH2
         IHYC = 1000000000 - IH1 - IH2;
         //MsgBox "3:HYC = " & IHYC
         IRHO = IRHOT * 10;
         //MsgBox "4:RHO = " & IRHO
         IRHOT = MPY5B(IRHO, IHYC, 10000);
-        IRHOT = (int)Math.floor((double)((IRHOT + 50) / 100));
+        IRHOT = (int)((IRHOT + 50) / 100);
         //MsgBox "5a:RHOT = " & IRHOT
 
         //    Line111:
@@ -278,6 +347,13 @@ public class NuevaTabla5B
 
     public void Line111()
     {
+        try {        
+            archivo.write("\nLine111");
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
         JRHOT = IRHOT * 10000;
         ICOUNT = 0;
         if ((IAPI - NHIF) > 0)
@@ -298,6 +374,13 @@ public class NuevaTabla5B
 
     public void Line115()
     {
+        try {        
+            archivo.write("\nLine115");
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
         K0 = K0F;
         K1 = K1F;
         IREG = 0;
@@ -316,6 +399,12 @@ public class NuevaTabla5B
     
     public void Line120()
     {
+        try {        
+            archivo.write("\nLine120");
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
             if ((IAPI - NHIJ) > 0)
             {
                 //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
@@ -332,7 +421,14 @@ public class NuevaTabla5B
     }
     
     public void Line125()
-        {
+    {
+        try {        
+            archivo.write("\nLine125");
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
             K0 = K0J;
             K1 = K1J;
             IREG = 1;
@@ -346,24 +442,37 @@ public class NuevaTabla5B
             {
                 Line130();
             }
-        }
+    }
         
-        public void Line130()
-        {
-            K0 = K0G;
-            K1 = K1G;
-            IREG = 2;
+    public void Line130()
+    {
+        
+        try {        
+            archivo.write("\nLine130");
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        
+        K0 = K0G;
+        K1 = K1G;
+        IREG = 2;
 
-            if(!retornoFuncion)
-            {
-                Line150();
-            }
+        if(!retornoFuncion)
+        {
+            Line150();
         }
+    }
         
 
 
         public void Line150()
         {
+            try {        
+                archivo.write("\nLine150");
+            } catch (IOException ex) {
+                Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+            }         
+            
             ICOUNT = ICOUNT + 1;
             if ((ICOUNT - 2) > 0)
             {
@@ -388,11 +497,17 @@ public class NuevaTabla5B
         
         public void Line300()
         {
+            try {        
+                archivo.write("\nLine300");
+            } catch (IOException ex) {
+                Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+            
             NP = NP + 1;
             IALF = ALF5B(IRHO60, K0, K1);
             //MsgBox "6A:ALPHA = " & IALF
             IVCF = VCF5B(IALF, IDT);
-            IVCF = (int)Math.floor((double)((IVCF + 50) / 100));
+            IVCF = (int)((IVCF + 50) / 100);
             //MsgBox "7:VCF = " & IVCF
             IRHO60 = DIV5B(JRHOT, IVCF, 1000);
             //MsgBox "8:RHO60 = " & IRHO60
@@ -405,7 +520,7 @@ public class NuevaTabla5B
                 }
             }
             KRHO = IRHO60;
-            IRHO60 = (int)Math.floor((double)((IRHO60 + 5) / 10));
+            IRHO60 = (int)((IRHO60 + 5) / 10);
             //MsgBox "5B:RHO60 = " & IRHO60
             if ((NP - 20) < 0)
             {
@@ -432,6 +547,12 @@ public class NuevaTabla5B
         
         public void Line400()
         {
+            try {        
+                archivo.write("\nLine400");
+            } catch (IOException ex) {
+                Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+            
             KRHO = 0;
             NP = 0;
             ICOUNT = 3;
@@ -446,17 +567,23 @@ public class NuevaTabla5B
         
         public void Line440()
         {
+            try {        
+                archivo.write("\nLine440");
+            } catch (IOException ex) {
+                Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+
             NP = NP + 1;
             IRES = DIV5B(IB, IRHO60, 10000);
             IRES = IRES * 10;
             //MsgBox "6B:TERM1 = " & IRES
             IRES2 = DIV5B(IRES, IRHO60, 10000);
-            IRES2 = (int)Math.floor((double)((IRES2 + 5) / 10));
+            IRES2 = (int)((IRES2 + 5) / 10);
             //MsgBox "6B:TERM2 = " & IRES2
-            IALF = (int)Math.floor((double)((IA + IRES2 + 5) / 10));
+            IALF = (int)((IA + IRES2 + 5) / 10);
             //MsgBox "6B:ALPHA = " & IALF
             IVCF = VCF5B(IALF, IDT);
-            IVCF = (int)Math.floor((double)((IVCF + 50) / 100));
+            IVCF = (int)((IVCF + 50) / 100);
             //MsgBox "7:VCF = " & IVCF
             IRHO60 = DIV5B(JRHOT, IVCF, 1000);
             //MsgBox "8:RHO60 = " & IRHO60
@@ -470,7 +597,7 @@ public class NuevaTabla5B
             }
             KSAV = KRHO;
             KRHO = IRHO60;
-            IRHO60 = (int)Math.floor((double)((IRHO60 + 5) / 10));
+            IRHO60 = (int)((IRHO60 + 5) / 10);
             //MsgBox "8:RHO60 = " & IRHO60
             if ((NP - 40) < 0)
             {
@@ -482,7 +609,7 @@ public class NuevaTabla5B
                 }                 
             }
 
-            IRHO60 = (int)Math.floor((double)((KRHO + KSAV) / 2));
+            IRHO60 = (int)((KRHO + KSAV) / 2);
 
             if(!retornoFuncion)
             {
@@ -492,6 +619,12 @@ public class NuevaTabla5B
         
         public void Line500()
         {
+            try {        
+                archivo.write("\nLine500");
+            } catch (IOException ex) {
+                Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+            
             if ((IRHO60 - LIM1) > 0)
             {
                 //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
@@ -508,12 +641,12 @@ public class NuevaTabla5B
                    Line1200();
                 } 
             }
-            IRHO60 = (int)Math.floor((double)((IRHO60 + 5) / 10));
+            IRHO60 = (int)((IRHO60 + 5) / 10);
             //MsgBox "F:RHO60 = " & IRHO60
-            IAPI60 = (int)Math.floor((double)(KONST / IRHO60)) - 13150;
-            IAPI60 = (int)Math.floor((double)((IAPI60 + 5) / 10));
+            IAPI60 = (int)(KONST / IRHO60) - 13150;
+            IAPI60 = (int)((IAPI60 + 5) / 10);
             //MsgBox "F:API60 = " & IAPI60
-            API60 = (int)Math.floor((double)IAPI60) / 10.0;
+            API60 = ((int)IAPI60) / 10;
 
             if ((ICOUNT - 3) >= 0)
             {
@@ -564,6 +697,12 @@ public class NuevaTabla5B
         
         public void Line620()
         {
+            try {        
+                archivo.write("\nLine620");
+            } catch (IOException ex) {
+                Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+            }             
+            
             if ((IAPI60 - NHIJ) == 0)
             {
                 //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
@@ -608,6 +747,13 @@ public class NuevaTabla5B
         
         public void Line640()
         {
+            try {        
+                archivo.write("\nLine640");
+            } catch (IOException ex) {
+                Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+            }               
+            
+            
                 if ((IAPI60 - NLOG) < 0)
                 {
                     //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
@@ -626,6 +772,12 @@ public class NuevaTabla5B
         
         public void Line680()
         {
+            try {        
+                archivo.write("\nLine680");
+            } catch (IOException ex) {
+                Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+            }  
+
             if ((IAPI60 - INT1) < 0)
             {
                 //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
@@ -662,143 +814,185 @@ public class NuevaTabla5B
         
         public void Line720()
         {
-                     if ((IAPI - IBP1) > 0)
-                    {
-                        //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
-                         if(!retornoFuncion)
-                        {
-                            Line790();
-                        }
-                    }
-
-                    if ((IT - IEP1) > 0)
-                    {
-                        //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
-                        if(!retornoFuncion)
-                        {
-                            Line830();
-                        }
-                    }
-                    else
-                    {
-
-                        //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
-                        if(!retornoFuncion)
-                        {
-                            Line820();
-                        }
-                    }
-
+            try {        
+                archivo.write("\nLine720");
+            } catch (IOException ex) {
+                Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+            }              
+            
+            if ((IAPI - IBP1) > 0)
+           {
+               //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
                 if(!retornoFuncion)
-                {
-                    Line790();
-                }           
+               {
+                   Line790();
+               }
+           }
+
+           if ((IT - IEP1) > 0)
+           {
+               //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
+               if(!retornoFuncion)
+               {
+                   Line830();
+               }
+           }
+           else
+           {
+
+               //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
+               if(!retornoFuncion)
+               {
+                   Line820();
+               }
+           }
+
+       if(!retornoFuncion)
+       {
+           Line790();
+       }           
         }
         
         public void Line790()
         {
-            Line790:
-                    if ((IAPI - IBP2) > 0)
-                    {
-                        //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
-                        if(!retornoFuncion)
-                        {
-                            Line810();
-                        }
-                    }
-
-                    if ((IT - IEP2) > 0)
-                    {
-                        //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
-                        if(!retornoFuncion)
-                        {
-                            Line830();
-                        }
-                    }
-                    else
-                    {
-
-                        //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
-                        if(!retornoFuncion)
-                        {
-                            Line820();
-                        }
-                    }
-
+            try {        
+                archivo.write("\nLine790");
+            } catch (IOException ex) {
+                Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+            }                
+            
+            //Line790:
+            if ((IAPI - IBP2) > 0)
+            {
+                //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
                 if(!retornoFuncion)
                 {
                     Line810();
                 }
+            }
 
-                if(!retornoFuncion)
-                {
-                    Line820();
-                }
-
+            if ((IT - IEP2) > 0)
+            {
+                //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
                 if(!retornoFuncion)
                 {
                     Line830();
                 }
-
-                if(!retornoFuncion)
-                {
-                    Line1150();
-                }
-
-                if(!retornoFuncion)
-                {
-                    Line1200();
-                }            
-        }
-        
-        public void Line810()
-        {
-            if ((IT - IEP3) > 0)
-            {
-                //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
-                Line830();
             }
-        }  
+            else
+            {
 
-        public void Line820()
-        {
-            //MsgBox "RETURN820"
-            //return ;
-            retornoFuncion = true;                 
-        }  
+                //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
+                if(!retornoFuncion)
+                {
+                    Line820();
+                }
+            }
 
-        public void Line830()
+        if(!retornoFuncion)
         {
-            IFLAG = 1;
-            //MsgBox "RETURN830"
-            //return ;
-            retornoFuncion = true;     
-        }  
+            Line810();
+        }
 
-        public void Line1150()
+        if(!retornoFuncion)
         {
-            //MsgBox "RETURN1200"
-            retornoFuncion = true;            
+            Line820();
+        }
+
+        if(!retornoFuncion)
+        {
+            Line830();
+        }
+
+        if(!retornoFuncion)
+        {
+            Line1150();
+        }
+
+        if(!retornoFuncion)
+        {
+            Line1200();
+        }            
+    }
+        
+    public void Line810()
+    {
+        try {        
+            archivo.write("\nLine810");
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        if ((IT - IEP3) > 0)
+        {
+            //VB TO JAVA CONVERTER TODO TASK: There is no 'GoTo' in Java:
+            Line830();
+        }
+    }  
+
+    public void Line820()
+    {
+        try {        
+            archivo.write("\nLine820");
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //MsgBox "RETURN820"
+        //return ;
+        retornoFuncion = true;                 
+    }  
+
+    public void Line830()
+    {
+        try {        
+            archivo.write("\nLine830");
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        
+        IFLAG = 1;
+        //MsgBox "RETURN830"
+        //return ;
+        retornoFuncion = true;     
+    }  
+
+    public void Line1150()
+    {
+        try {        
+            archivo.write("\nLine1150");
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
         }  
         
-         public void Line1200()
-        {
-            IFLAG = -1;
-            API60 = -99.9;       
-            //MsgBox "RETURN1200"
-            retornoFuncion = true;
-        }
+        //MsgBox "RETURN1200"
+        retornoFuncion = true;            
+    }  
+
+     public void Line1200()
+    {
+        try {        
+            archivo.write("\nLine1200");
+        } catch (IOException ex) {
+            Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        
+        IFLAG = -1;
+        API60 = -99.9;       
+        //MsgBox "RETURN1200"
+        retornoFuncion = true;
+    }
         
       
         
         public int RHO5B(double AAA)
         {
                 IDENOM = AAA + 1315;
-                //return (int)Math.floor((double)(((int)Math.floor((double)(1413601980 / IDENOM)) + 5) / 10.0));
+                //IDENOM = AAA + 1315
                 //RHO5B = Int((Int(1413601980 / IDENOM) + 5) / 10)
-                //RHO5B = Int((x + 5) / 10)
                 int x = (int)(1413601980 / IDENOM);
-                return( (int)((x + 5) / 10) );
+                return (int)((x + 5) / 10);
         }
 
         public final double MPY5B(double IX, double IY, double ISCALE)
@@ -810,14 +1004,14 @@ public class NuevaTabla5B
                 double K1 = 0;
                 double K2 = 0;
                 double K3 = 0;
-                IU1 = Math.floor(IX / ISCALE);
-                K1 = Math.floor(ISCALE * IU1);
+                IU1 = (int)(IX / ISCALE);
+                K1 = (int)(ISCALE * IU1);
                 IV1 = IX - K1;
-                IU2 = Math.floor(IY / ISCALE);
-                K2 = Math.floor(ISCALE * IU2);
+                IU2 = (int)(IY / ISCALE);
+                K2 = (int)(ISCALE * IU2);
                 IV2 = IY - K2;
-                K3 = Math.floor(IU1 * IV2) + Math.floor(IU2 * IV1) + Math.floor(IV1 * IV2 / ISCALE);
-                return Math.floor((K3 + Math.floor(ISCALE / 2)) / ISCALE) + IU1 * IU2;
+                K3 = (int)(IU1 * IV2) + (int)(IU2 * IV1) + (int)(IV1 * IV2 / ISCALE);
+                return (int)((K3 + (int)(ISCALE / 2)) / ISCALE) + IU1 * IU2;
 
         }
 
@@ -836,15 +1030,15 @@ public class NuevaTabla5B
                 //MsgBox "6A:TERM1 = " & IALFS
                 IALF2 = DIV5B(IALFS, AAA, 10000);
                 //MsgBox "6A:TERM2 = " & IALF2
-                return Math.floor((IALF1 + IALF2 + 500) / 1000);
+                return (int)((IALF1 + IALF2 + 500) / 1000);
         }
         public final double DIV5B(double AAA, double BBB, double CCC)
         {
                 double IRES1 = 0;
                 double IRES2 = 0;
 
-                IRES1 = Math.floor(AAA / BBB);
-                IRES2 = Math.floor((AAA - IRES1 * BBB) * CCC / BBB);
+                IRES1 = (int)(AAA / BBB);
+                IRES2 = (int)((AAA - IRES1 * BBB) * CCC / BBB);
                 return IRES1 * CCC + IRES2;
         }
         public final double VCF5B(double AAA, double BBB)
@@ -862,25 +1056,29 @@ public class NuevaTabla5B
 
                 ITERM1 = AAA * BBB;
                 //MsgBox "7:TERM1 = " & ITERM1
-                ITERM2 = Math.floor(ITERM1 / 5) * 40;
+                ITERM2 = (int)(ITERM1 / 5) * 40;
                 //MsgBox "7:TERM2 = " & ITERM2
                 ITERM3 = MPY5B(ITERM1, ITERM2, 1000);
-                ITERM3 = Math.floor((ITERM3 + 500) / 1000);
+                ITERM3 = (int)((ITERM3 + 500) / 1000);
                 //MsgBox "7:TERM3 = " & ITERM3
 
                 IX = -ITERM1 - ITERM3;
                 //MsgBox "7:TERM4 = " & IX
                 ISUM1 = 100000000 + IX;
                 ISUM2 = MPY5B(IX, IX, 1000);
-                ISUM2 = (int)Math.floor((double)(Math.floor(((ISUM2 + 50) / 100)) / 2));
+                ISUM2 = ((int)((int)(((ISUM2 + 50) / 100)) / 2));
                 ISUM3 = MPY5B(IX, ISUM2, 1000);
-                ISUM3 = (int)Math.floor((double)(Math.floor(((ISUM3 + 50) / 100)) / 3));
+//                ISUM3 = (int)(int)((double)((int)(((ISUM3 + 50) / 100)) / 3));
+                ISUM3 = ((int)((int)(((ISUM3 + 50) / 100)) / 3));
                 ISUM4 = MPY5B(IX, ISUM3, 1000);
-                ISUM4 = (int)Math.floor((double)(Math.floor(((ISUM4 + 50) / 100)) / 4));
+//                ISUM4 = (int)(int)((double)((int)(((ISUM4 + 50) / 100)) / 4));
+                ISUM4 = ((int)((int)(((ISUM4 + 50) / 100)) / 4));
                 ISUM5 = MPY5B(IX, ISUM4, 1000);
-                ISUM5 = (int)Math.floor((double)(Math.floor(((ISUM5 + 50) / 100)) / 5));
+//                ISUM5 = (int)(int)((double)((int)(((ISUM5 + 50) / 100)) / 5));
+                ISUM5 = ((int)((int)(((ISUM5 + 50) / 100)) / 5));
                 ISUM6 = MPY5B(IX, ISUM5, 1000);
-                ISUM6 = (int)Math.floor((double)(Math.floor(((ISUM6 + 50) / 100)) / 6));
+//                ISUM6 = (int)(int)((double)((int)(((ISUM6 + 50) / 100)) / 6));
+                ISUM6 = ((int)((int)(((ISUM6 + 50) / 100)) / 6));
                 return ISUM1 + ISUM2 + ISUM3 + ISUM4 + ISUM5 + ISUM6;
         }        
 }

@@ -24,6 +24,7 @@ import jbr.springmvc.service.UserService;
 
 @Controller
 public class LoginController {
+    
 
   @Autowired
   UserService userService;
@@ -91,46 +92,7 @@ public class LoginController {
     End Sub
       */
 
-      
-    /*
-      
-        Private Sub API60_AfterUpdate()
-            Me!FACTOR = FactIntPol(Me!API60, Me!TEMPINT)
-            Me!VOL60 = Round(Me!VOL * Me!FACTOR, 0)
-            Me!FACTOR13 = IFACTOR13(Me!API60)
-            Me!KILOS = Round(Me!VOL60 * Me!FACTOR13, 0)
-        End Sub      
-      
-        Private Sub FACTOR_AfterUpdate()
-            Me!VOL60 = Round(Me!VOL * Me!FACTOR, 0)
-        End Sub
- 
-        Private Sub FACTOR13_AfterUpdate()
-            Me!KILOS = Round(Me!VOL60 * Me!FACTOR13, 0)
-        End Sub     
-      
-        
-      
-      */      
     
-    /*
-        Private Sub TEMPINT_AfterUpdate()
-            Me!FACTOR = FactIntPol(Me!API60, Me!TEMPINT)
-            Me!VOL60 = Round(Me!VOL * Me!FACTOR, 0)
-        End Sub    
-    
-    */
-        /*      
-        Private Sub TK_AfterUpdate()
-            If Me!TK = 841976 Then
-                DoCmd.OpenForm "FOR ME"
-                Exit Sub
-            End If
-            Me!VOL = VOLTK(Me!ALT, Me!TK)
-            Me!VOL60 = Round(Me!VOL * Me!FACTOR, 0)
-            Me!KILOS = Round(Me!VOL60 * Me!FACTOR13, 0)
-        End Sub
-        */        
         
 //    } 
 //    else 
@@ -189,26 +151,26 @@ public class LoginController {
                         for(VolTest = 0; VolTest <= 1000; VolTest = VolTest + 100)
                         {
                             //Vol60Test = Round(VolTest * FactorTest, 0)
-                            Vol60Test = Otras.round(VolTest * FactorTest, 0);
+                            Vol60Test = Otras.round(VolTest * FactorTest, 0, myWriter);
                             //Factor13Test = IFACTOR13(API60Test)
                             T13 t13 = new T13();
                             Factor13Test = t13.FACTOR13(API60Test);
                             //KilosTest = Round(Vol60Test * Factor13Test, 0)
-                            KilosTest = Otras.round(Vol60Test * Factor13Test, 0);
+                            KilosTest = Otras.round(Vol60Test * Factor13Test, 0, myWriter);
                             try 
                             {
                                 //Print #intFile, ApiObsTest & vbTab & TempObsTest & vbTab & API60Test & vbTab & TempIntTest & vbTab & FactorTest & vbTab & VolTest & vbTab & Vol60Test & vbTab & Factor13Test & vbTab & KilosTest
                                 myWriter.write
                                                 (
-                                                        ApiObsTest + "\t" + 
-                                                        TempObsTest + "\t" + 
-                                                        TempIntTest + "\t" + 
-                                                        VolTest + "\t" + 
-                                                        API60Test + "\t" + 
-                                                        FactorTest + "\t" + 
-                                                        Vol60Test + "\t" + 
-                                                        Factor13Test + "\t" + 
-                                                        KilosTest + "\n"
+                                                        "\n\t" + ApiObsTest  + 
+                                                        "\t" + TempObsTest + 
+                                                        "\t" + TempIntTest + 
+                                                        "\t" + VolTest + 
+                                                        "\t" + API60Test + 
+                                                        "\t" + FactorTest + 
+                                                        "\t" + Vol60Test + 
+                                                        "\t" + Factor13Test + 
+                                                        "\t" + KilosTest
                                                 );
                             } 
                             catch (IOException ex) 

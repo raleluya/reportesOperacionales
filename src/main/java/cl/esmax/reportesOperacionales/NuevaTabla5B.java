@@ -67,7 +67,7 @@ public class NuevaTabla5B
         this.archivo = archivo;
         
         try {
-            archivo.write("API60_INI\n");
+            archivo.write("\nAPI60_INI");
         } catch (IOException ex) {
             Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -198,6 +198,7 @@ public class NuevaTabla5B
         }    
 
         try {        
+            archivo.write("\nAPI60_FIN");
             archivo.write("\nAPI60=" + API60);
         } catch (IOException ex) {
             Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
@@ -295,7 +296,7 @@ public class NuevaTabla5B
         IFLAG = 0;
         IDT = IT - IBASE;
         //MsgBox "2:DELTA = " & IDT
-        IRHOT = RHO5B(IAPI);
+        IRHOT = RHO5B(IAPI, archivo);
 
         if (IHydro > 0)
         {
@@ -334,7 +335,7 @@ public class NuevaTabla5B
         //MsgBox "3:HYC = " & IHYC
         IRHO = IRHOT * 10;
         //MsgBox "4:RHO = " & IRHO
-        IRHOT = MPY5B(IRHO, IHYC, 10000);
+        IRHOT = MPY5B(IRHO, IHYC, 10000, archivo);
         IRHOT = (int)((IRHOT + 50) / 100);
         //MsgBox "5a:RHOT = " & IRHOT
 
@@ -504,12 +505,12 @@ public class NuevaTabla5B
             } 
             
             NP = NP + 1;
-            IALF = ALF5B(IRHO60, K0, K1);
+            IALF = ALF5B(IRHO60, K0, K1, archivo);
             //MsgBox "6A:ALPHA = " & IALF
-            IVCF = VCF5B(IALF, IDT);
+            IVCF = VCF5B(IALF, IDT, archivo);
             IVCF = (int)((IVCF + 50) / 100);
             //MsgBox "7:VCF = " & IVCF
-            IRHO60 = DIV5B(JRHOT, IVCF, 1000);
+            IRHO60 = DIV5B(JRHOT, IVCF, 1000, archivo);
             //MsgBox "8:RHO60 = " & IRHO60
             if ((Math.abs(IRHO60 - KRHO) - 50) < 0)
             {
@@ -574,18 +575,18 @@ public class NuevaTabla5B
             } 
 
             NP = NP + 1;
-            IRES = DIV5B(IB, IRHO60, 10000);
+            IRES = DIV5B(IB, IRHO60, 10000, archivo);
             IRES = IRES * 10;
             //MsgBox "6B:TERM1 = " & IRES
-            IRES2 = DIV5B(IRES, IRHO60, 10000);
+            IRES2 = DIV5B(IRES, IRHO60, 10000, archivo);
             IRES2 = (int)((IRES2 + 5) / 10);
             //MsgBox "6B:TERM2 = " & IRES2
             IALF = (int)((IA + IRES2 + 5) / 10);
             //MsgBox "6B:ALPHA = " & IALF
-            IVCF = VCF5B(IALF, IDT);
+            IVCF = VCF5B(IALF, IDT, archivo);
             IVCF = (int)((IVCF + 50) / 100);
             //MsgBox "7:VCF = " & IVCF
-            IRHO60 = DIV5B(JRHOT, IVCF, 1000);
+            IRHO60 = DIV5B(JRHOT, IVCF, 1000, archivo);
             //MsgBox "8:RHO60 = " & IRHO60
             if ((Math.abs(IRHO60 - KRHO) - 70) < 0)
             {
@@ -986,17 +987,26 @@ public class NuevaTabla5B
         
       
         
-        public int RHO5B(double AAA)
+        public double RHO5B(double AAA, FileWriter archivo)
         {
+                double RHO5B;
                 IDENOM = AAA + 1315;
                 //IDENOM = AAA + 1315
                 //RHO5B = Int((Int(1413601980 / IDENOM) + 5) / 10)
                 int x = (int)(1413601980 / IDENOM);
-                return (int)((x + 5) / 10);
+                RHO5B = (int)((x + 5) / 10);
+                try {
+                    archivo.write("\n");
+                    archivo.write(((Double)RHO5B).toString());
+                } catch (IOException ex) {
+                    Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                return RHO5B;
         }
 
-        public final double MPY5B(double IX, double IY, double ISCALE)
+        public final double MPY5B(double IX, double IY, double ISCALE, FileWriter archivo)
         {
+                double MPY5B;
                 double IU1 = 0;
                 double IU2 = 0;
                 double IV1 = 0;
@@ -1011,38 +1021,82 @@ public class NuevaTabla5B
                 K2 = (int)(ISCALE * IU2);
                 IV2 = IY - K2;
                 K3 = (int)(IU1 * IV2) + (int)(IU2 * IV1) + (int)(IV1 * IV2 / ISCALE);
-                return (int)((K3 + (int)(ISCALE / 2)) / ISCALE) + IU1 * IU2;
+                
+                MPY5B = (int)((K3 + (int)(ISCALE / 2)) / ISCALE) + IU1 * IU2;
+                try {
+                    archivo.write("\n");                    
+                    archivo.write
+                                (
+                                    ((Double)MPY5B).toString()
+                                );
+                } catch (IOException ex) {
+                    Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                                
+                return MPY5B;
 
         }
 
-        public final double ALF5B(double AAA, double BBB, double CCC)
+        public final double ALF5B(double AAA, double BBB, double CCC, FileWriter archivo)
         {
+                double ALF5B;
                 double INUM = 0;
                 double IALF1 = 0;
                 double IALFS = 0;
                 double IALF2 = 0;
 
                 INUM = CCC * 10000;
-                IALF1 = DIV5B(INUM, AAA, 10000);
+                IALF1 = DIV5B(INUM, AAA, 10000, archivo);
                 //MsgBox "6A:TERM3 = " & IALF1
                 INUM = BBB * 100;
-                IALFS = DIV5B(INUM, AAA, 10000);
+                IALFS = DIV5B(INUM, AAA, 10000, archivo);
                 //MsgBox "6A:TERM1 = " & IALFS
-                IALF2 = DIV5B(IALFS, AAA, 10000);
+                IALF2 = DIV5B(IALFS, AAA, 10000, archivo);
                 //MsgBox "6A:TERM2 = " & IALF2
-                return (int)((IALF1 + IALF2 + 500) / 1000);
+                
+                ALF5B = (int)((IALF1 + IALF2 + 500) / 1000);
+                try {
+                    archivo.write("\n");                    
+                    archivo.write
+                                (
+                                    ((Double)ALF5B).toString()
+                                );
+                } catch (IOException ex) {
+                    Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+                }    
+                
+                return ALF5B;
         }
-        public final double DIV5B(double AAA, double BBB, double CCC)
+        
+        public final double DIV5B(double AAA, double BBB, double CCC, FileWriter archivo)
         {
+                double DIV5B = 0;
                 double IRES1 = 0;
                 double IRES2 = 0;
 
                 IRES1 = (int)(AAA / BBB);
                 IRES2 = (int)((AAA - IRES1 * BBB) * CCC / BBB);
-                return IRES1 * CCC + IRES2;
+                
+                DIV5B = IRES1 * CCC + IRES2;
+                try {
+                    archivo.write("\n");                    
+                    archivo.write
+                                (
+                                    ((Double)
+                                        (
+                                            DIV5B
+                                        )).toString()
+                                );
+                } catch (IOException ex) {
+                    Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+                }  
+                
+                return DIV5B;
         }
-        public final double VCF5B(double AAA, double BBB)
+        
+        public final double VCF5B(double AAA, double BBB, FileWriter archivo)
         {
+                double VCF5B;
                 double ITERM1 = 0;
                 double ITERM2 = 0;
                 double ITERM3 = 0;
@@ -1058,27 +1112,43 @@ public class NuevaTabla5B
                 //MsgBox "7:TERM1 = " & ITERM1
                 ITERM2 = (int)(ITERM1 / 5) * 40;
                 //MsgBox "7:TERM2 = " & ITERM2
-                ITERM3 = MPY5B(ITERM1, ITERM2, 1000);
+                ITERM3 = MPY5B(ITERM1, ITERM2, 1000, archivo);
                 ITERM3 = (int)((ITERM3 + 500) / 1000);
                 //MsgBox "7:TERM3 = " & ITERM3
 
                 IX = -ITERM1 - ITERM3;
                 //MsgBox "7:TERM4 = " & IX
                 ISUM1 = 100000000 + IX;
-                ISUM2 = MPY5B(IX, IX, 1000);
+                ISUM2 = MPY5B(IX, IX, 1000, archivo);
                 ISUM2 = ((int)((int)(((ISUM2 + 50) / 100)) / 2));
-                ISUM3 = MPY5B(IX, ISUM2, 1000);
+                ISUM3 = MPY5B(IX, ISUM2, 1000, archivo);
 //                ISUM3 = (int)(int)((double)((int)(((ISUM3 + 50) / 100)) / 3));
                 ISUM3 = ((int)((int)(((ISUM3 + 50) / 100)) / 3));
-                ISUM4 = MPY5B(IX, ISUM3, 1000);
+                ISUM4 = MPY5B(IX, ISUM3, 1000, archivo);
 //                ISUM4 = (int)(int)((double)((int)(((ISUM4 + 50) / 100)) / 4));
                 ISUM4 = ((int)((int)(((ISUM4 + 50) / 100)) / 4));
-                ISUM5 = MPY5B(IX, ISUM4, 1000);
+                ISUM5 = MPY5B(IX, ISUM4, 1000, archivo);
 //                ISUM5 = (int)(int)((double)((int)(((ISUM5 + 50) / 100)) / 5));
                 ISUM5 = ((int)((int)(((ISUM5 + 50) / 100)) / 5));
-                ISUM6 = MPY5B(IX, ISUM5, 1000);
+                ISUM6 = MPY5B(IX, ISUM5, 1000, archivo);
 //                ISUM6 = (int)(int)((double)((int)(((ISUM6 + 50) / 100)) / 6));
                 ISUM6 = ((int)((int)(((ISUM6 + 50) / 100)) / 6));
-                return ISUM1 + ISUM2 + ISUM3 + ISUM4 + ISUM5 + ISUM6;
+                
+                VCF5B = ISUM1 + ISUM2 + ISUM3 + ISUM4 + ISUM5 + ISUM6;
+                try {
+                    archivo.write("\n");                    
+                    archivo.write
+                                (
+                                    ((Double)
+                                        (
+                                            VCF5B
+                                        )).toString()
+                                );
+                } catch (IOException ex) {
+                    Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+                }                  
+                
+                
+                return VCF5B;
         }        
 }

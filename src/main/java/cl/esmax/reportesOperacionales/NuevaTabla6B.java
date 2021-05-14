@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  */
 public class NuevaTabla6B 
 {
-    FileWriter myWriter;
+    FileWriter archivo;
     
     
     private long NBP1, NBP2, NBP3, NBP4;
@@ -43,17 +43,17 @@ public class NuevaTabla6B
     private double FactorApi;
 
 
-    double FactorApi(double API60, double Degf, FileWriter myWriter) 
+    double FactorApi(double API60, double Degf, FileWriter archivo) 
     {
-        this.myWriter = myWriter;
+        this.archivo = archivo;
+
         
         try {
-            myWriter.write("FactorApi_INI\n");
+            archivo.write("\nFactorApi_INI");
         } catch (IOException ex) {
             Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
         }        
-        
-        
+
         NBP1 = 370;
         NBP2 = 480;
         NBP3 = 520;
@@ -120,8 +120,8 @@ public class NuevaTabla6B
         //}  
 
          try {           
-            myWriter.write("\nFactorApi=" + FactorApi);
-            myWriter.write("\nFactorApi=" + FactorApi);
+            archivo.write("\nFactorApi_FIN");
+            archivo.write("\nFactorApi=" + FactorApi);
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -132,7 +132,7 @@ public class NuevaTabla6B
     public void Line10()
     {
          try {           
-            myWriter.write("\nLine10");
+            archivo.write("\nLine10");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         }       
@@ -144,7 +144,7 @@ public class NuevaTabla6B
     public void Line20()
     {
          try {           
-            myWriter.write("\nLine20");
+            archivo.write("\nLine20");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         }   
@@ -178,7 +178,7 @@ public class NuevaTabla6B
     public void Line40()
     {
          try {           
-            myWriter.write("\nLine40");
+            archivo.write("\nLine40");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -211,7 +211,7 @@ public class NuevaTabla6B
     public void Line60()
     {
          try {           
-            myWriter.write("\nLine60");
+            archivo.write("\nLine60");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -243,7 +243,7 @@ public class NuevaTabla6B
     public void Line75()
     {
          try {           
-            myWriter.write("\nLine75");
+            archivo.write("\nLine75");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -270,7 +270,7 @@ public class NuevaTabla6B
     public void Line80()
     {
          try {           
-            myWriter.write("\nLine80");
+            archivo.write("\nLine80");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -295,7 +295,7 @@ public class NuevaTabla6B
     public void Line90()
     {
          try {           
-            myWriter.write("\nLine90");
+            archivo.write("\nLine90");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -307,7 +307,7 @@ public class NuevaTabla6B
     public void Line100()
     {
          try {           
-            myWriter.write("\nLine100");
+            archivo.write("\nLine100");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         }         
@@ -350,7 +350,7 @@ public class NuevaTabla6B
     public void Line120()
     {
          try {           
-            myWriter.write("\nLine120");
+            archivo.write("\nLine120");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         }          
@@ -395,7 +395,7 @@ public class NuevaTabla6B
     public void Line140()
     {
           try {           
-            myWriter.write("\nLine140");
+            archivo.write("\nLine140");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         }         
@@ -421,13 +421,13 @@ public class NuevaTabla6B
     {
         
           try {           
-            myWriter.write("\nLine150");
+            archivo.write("\nLine150");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         } 
           
           
-        IRHO = RHOB(IAPI);
+        IRHO = RHOB(IAPI, archivo);
         //MsgBox "2:RHO = " & IRHO
         //MsgBox "3:K0 = " & K0
         //MsgBox "3:K1 = " & K1
@@ -440,10 +440,10 @@ public class NuevaTabla6B
                 Line155();
             }             
         }
-        IRES = SDIVB(K0, IRHO);
+        IRES = SDIVB(K0, IRHO, archivo);
         //MsgBox "4A:1 = " & IRES
         IRES = IRES * 10;
-        IALF1 = SDIVB(IRES, IRHO);
+        IALF1 = SDIVB(IRES, IRHO, archivo);
         IALF1 = ((int)((IALF1 + 5) / 10));
         //MsgBox "4A:2 " & IALF1
         IALF = ((int)((IALF1 + K1 + 5) / 10));
@@ -466,12 +466,12 @@ public class NuevaTabla6B
     public void Line155()
     {
           try {           
-            myWriter.write("\nLine155");
+            archivo.write("\nLine155");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         }         
         
-        IALF = ALPHAB(IRHO, K0, K1);
+        IALF = ALPHAB(IRHO, K0, K1, archivo);
         //MsgBox "4C:ALFA = " & IALF
         //MsgBox "5:DELTA = " & IDT
 
@@ -485,12 +485,12 @@ public class NuevaTabla6B
     public void Line158()
     {
           try {           
-            myWriter.write("\nLine158");
+            archivo.write("\nLine158");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         } 
           
-        IVCF = VCF6B(IALF, IDT);
+        IVCF = VCF6B(IALF, IDT, archivo);
         //MsgBox "6B:VCF = " & IVCF
         IFLAG = 0;
         if ((IAPI - IBP1) > 0)
@@ -522,7 +522,7 @@ public class NuevaTabla6B
     public void Line165()
     {
           try {           
-            myWriter.write("\nLine165");
+            archivo.write("\nLine165");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -545,7 +545,7 @@ public class NuevaTabla6B
     public void Line170()
     {
           try {           
-            myWriter.write("\nLine170");
+            archivo.write("\nLine170");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -589,7 +589,7 @@ public class NuevaTabla6B
     public void Line190()
     {
           try {           
-            myWriter.write("\nLine190");
+            archivo.write("\nLine190");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         }         
@@ -615,7 +615,7 @@ public class NuevaTabla6B
     public void Line200()
     {
           try {           
-            myWriter.write("\nLine200");
+            archivo.write("\nLine200");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         }  
@@ -676,7 +676,7 @@ public class NuevaTabla6B
     public void Line250()
     {
           try {           
-            myWriter.write("\nLine250");
+            archivo.write("\nLine250");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -691,7 +691,7 @@ public class NuevaTabla6B
     public void Line220()
     {
           try {           
-            myWriter.write("\nLine220");
+            archivo.write("\nLine220");
         } catch (IOException ex) {
             Logger.getLogger(Tablas5By6B.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -699,7 +699,7 @@ public class NuevaTabla6B
         CVCF = PVCF;       
     }
     
-    public double VCF6B(double AAA, double BBB)
+    public double VCF6B(double AAA, double BBB, FileWriter archivo)
     {
         double ITERM1, ITERM2, ITERM3, ITERM4;
         double IX;
@@ -709,26 +709,41 @@ public class NuevaTabla6B
         //'MsgBox "6A:1 = " & ITERM1
         ITERM2 = ((int)(ITERM1 / 5)) * 4;
         //'MsgBox "6A:2 = " & ITERM2
-        ITERM3 = MPYB(ITERM1, ITERM2);
+        ITERM3 = MPYB(ITERM1, ITERM2, archivo);
         //'MsgBox "6A:3 = " & ITERM3
         IX = -(ITERM1 + ITERM3);
         //'MsgBox "6A:4 = " & IX
         ISUM1 = 100000000 + IX;
-        ISUM2 = MPYB(IX, IX);
+        ISUM2 = MPYB(IX, IX, archivo);
         ISUM2 = (int)(ISUM2 / 2);
-        ISUM3 = MPYB(IX, ISUM2);
+        ISUM3 = MPYB(IX, ISUM2, archivo);
         ISUM3 = (int)(ISUM3 / 3);
-        ISUM4 = MPYB(IX, ISUM3);
+        ISUM4 = MPYB(IX, ISUM3, archivo);
         ISUM4 = (int)(ISUM4 / 4);
-        ISUM5 = MPYB(IX, ISUM4);
+        ISUM5 = MPYB(IX, ISUM4, archivo);
         ISUM5 = (int)(ISUM5 / 5);
-        ISUM6 = MPYB(IX, ISUM5);
+        ISUM6 = MPYB(IX, ISUM5, archivo);
         ISUM6 = (int)(ISUM6 / 6);
         double VCF6B = ISUM1 + ISUM2 + ISUM3 + ISUM4 + ISUM5 + ISUM6;
+        
+                try {
+                    archivo.write("\n");
+                    archivo.write
+                                (
+                                    ((Double)
+                                        (
+                                            VCF6B
+                                        )).toString()
+                                );
+                } catch (IOException ex) {
+                    Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+        
         return VCF6B;
     }   
     
-    public double MPYB(double AAA, double BBB)
+    public double MPYB(double AAA, double BBB, FileWriter archivo)
     {
         double IU1, IU2;
         double K1, K2, K3;
@@ -745,42 +760,103 @@ public class NuevaTabla6B
         K3 = IU1 * IV2 + IU2 * IV1 + (int)(IV1 * IV2 / 10000);
         //'MsgBox "K3= " & K3
         double MPYB = ((int)((K3 + 5000) / 10000)) + IU1 * IU2;
+        
+                try {
+                    archivo.write("\n");
+                    archivo.write
+                                (
+                                    ((Double)
+                                        (
+                                            MPYB
+                                        )).toString()
+                                );
+                } catch (IOException ex) {
+                    Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
         return MPYB;
     }
     
-    double ALPHAB(double AAA, double BBB, double CCC)
+    double ALPHAB(double AAA, double BBB, double CCC, FileWriter archivo)
     {
         double INUM;
         double IALF1, IALF2, IALFS;
 
         INUM = CCC * 10000;
-        IALF1 = SDIVB(INUM, AAA);
+        IALF1 = SDIVB(INUM, AAA, archivo);
         INUM = BBB * 100;
-        IALFS = SDIVB(INUM, AAA);
-        IALF2 = SDIVB(IALFS, AAA);
+        IALFS = SDIVB(INUM, AAA, archivo);
+        IALF2 = SDIVB(IALFS, AAA, archivo);
         //'MsgBox "4A:1 = " & IALFS
         //'MsgBox "4A:2 = " & IALF2
         //'MsgBox "4B:1 = " & IALF1
         double ALPHAB = ((int)((IALF1 + IALF2 + 500) / 1000));
+        
+                try {
+                    archivo.write("\n");
+                    archivo.write
+                                (
+                                    ((Double)
+                                        (
+                                            ALPHAB
+                                        )).toString()
+                                );
+                } catch (IOException ex) {
+                    Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+                }  
+                
+                
         return ALPHAB;
     }
     
-    public double SDIVB(double AAA, double BBB)
+    public double SDIVB(double AAA, double BBB, FileWriter archivo)
     {
         double IRES1;
         double IRES2;
 
         IRES1 = (int)(AAA / BBB);
         IRES2 = (int)((AAA - IRES1 * BBB) * 10000 / BBB);
-        double SDIVB = IRES1 * 10000 + IRES2;
-        return SDIVB;
+        
+                try {
+                    archivo.write("\n");
+                    archivo.write
+                                (
+                                    ((Double)
+                                        (
+                                            IRES1 * 10000 + IRES2
+                                        )).toString()
+                                );
+                } catch (IOException ex) {
+                    Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+                }       
+        
+        return IRES1 * 10000 + IRES2;
     }
     
-    public double RHOB(double AAA)
+    public double RHOB(double AAA, FileWriter archivo)
     {
         double IDENOM;
         IDENOM = AAA + 1315;
-        double RHOB = (int)(((int)(1413601980 / IDENOM)) + 5 / 10);
+        int tmp = (int)(1413601980 / IDENOM);
+        int RHOB = (int)((tmp + 5) / 10);
+        
+                try {
+                    archivo.write("\n");
+//                    archivo.write(((Double)AAA).toString());
+//                    archivo.write("\n");
+//                    archivo.write(((Double)IDENOM).toString());
+//                    archivo.write("\n");
+                    archivo.write
+                                (
+                                    ((Integer)
+                                        (
+                                            RHOB
+                                        )).toString()
+                                );
+                } catch (IOException ex) {
+                    Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
+                }         
+        
         return RHOB;
     }
 }

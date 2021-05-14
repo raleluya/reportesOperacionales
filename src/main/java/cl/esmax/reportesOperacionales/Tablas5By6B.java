@@ -18,12 +18,13 @@ import java.util.logging.Logger;
  */
 public class Tablas5By6B 
 {
+        
     public double FactIntPol(double API60, double TEMPINT, FileWriter myWriter)
     {
             double FactIntPol = -11111111111d;
             
         try {
-            myWriter.write("FactIntPol_INI\n");
+            myWriter.write("\nFactIntPol_INI");
         } catch (IOException ex) {
             Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
         }               
@@ -36,9 +37,9 @@ public class Tablas5By6B
             DecTemp = TEMPINT - (int)(TEMPINT);
             if(!(DecAPI == 0) && !(DecAPI == 0.5))
             {
-                D1 = Otras.MasBajo(API60);
-                D3 = Otras.MasAlto(API60);
-                D2 = Otras.MasBajo(TEMPINT);
+                D1 = Otras.MasBajo(API60, myWriter);
+                D3 = Otras.MasAlto(API60, myWriter);
+                D2 = Otras.MasBajo(TEMPINT, myWriter);
                 {
                     NuevaTabla6B nuevaTabla6B = new NuevaTabla6B();
                     A1 = nuevaTabla6B.FactorApi(D1, D2, myWriter);
@@ -53,7 +54,7 @@ public class Tablas5By6B
                 
                 if((!(DecTemp == 0)) && (!(DecTemp == 0.5)))
                 {
-                    D4 = Otras.MasAlto(TEMPINT);
+                    D4 = Otras.MasAlto(TEMPINT, myWriter);
                     
                     {
                         NuevaTabla6B nuevaTabla6B = new NuevaTabla6B();
@@ -65,22 +66,22 @@ public class Tablas5By6B
                         A4 = nuevaTabla6B.FactorApi(D3, D4, myWriter);
                     }
                     
-                    B1 = Otras.Interpolar(D2, D4, A1, A2, TEMPINT);
-                    B2 = Otras.Interpolar(D2, D4, A3, A4, TEMPINT);
+                    B1 = Otras.Interpolar(D2, D4, A1, A2, TEMPINT, myWriter);
+                    B2 = Otras.Interpolar(D2, D4, A3, A4, TEMPINT, myWriter);
                     
-                    FactIntPol = Otras.round(Otras.Interpolar(D1, D3, B1, B2, API60), 4); //redondeo decimal 4to
+                    FactIntPol = Otras.round(Otras.Interpolar(D1, D3, B1, B2, API60, myWriter), 4, myWriter); //redondeo decimal 4to
                 }
                 else
                 {
-                    FactIntPol = Otras.round(Otras.Interpolar(D1, D3, A1, A3, API60), 4); //redondeo decimal 4to
+                    FactIntPol = Otras.round(Otras.Interpolar(D1, D3, A1, A3, API60, myWriter), 4, myWriter); //redondeo decimal 4to
                 }
             }            
             else
             {
                 if((!(DecTemp == 0)) && (!(DecTemp == 0.5)))
                 {
-                    D2 = Otras.MasBajo(TEMPINT);
-                    D4 = Otras.MasAlto(TEMPINT);
+                    D2 = Otras.MasBajo(TEMPINT, myWriter);
+                    D4 = Otras.MasAlto(TEMPINT, myWriter);
                     
                     {
                         NuevaTabla6B nuevaTabla6B = new NuevaTabla6B();
@@ -93,13 +94,13 @@ public class Tablas5By6B
                     A3 = nuevaTabla6B.FactorApi(API60, D4, myWriter);
                 }
                     
-                    FactIntPol = Otras.round(Otras.Interpolar(D2, D4, A1, A3, TEMPINT), 4); //redondeo decimal 4to
+                    FactIntPol = Otras.round(Otras.Interpolar(D2, D4, A1, A3, TEMPINT, myWriter), 4, myWriter); //redondeo decimal 4to
                 }
                 else
                 {
                     {
                         NuevaTabla6B nuevaTabla6B = new NuevaTabla6B();
-                        FactIntPol = nuevaTabla6B.FactorApi(API60, TEMPINT, myWriter);
+                        FactIntPol = nuevaTabla6B.FactorApi(API60, TEMPINT, myWriter); 
                     }
                     //MsgBox "FactorApi = " & FactIntPol
                 }
@@ -120,7 +121,7 @@ public class Tablas5By6B
         double Api60IntPol = -1111111111111d;
         
         try {
-            myWriter.write("Api60IntPol_INI\n");
+            myWriter.write("\nApi60IntPol_INI");
         } catch (IOException ex) {
             Logger.getLogger(NuevaTabla5B.class.getName()).log(Level.SEVERE, null, ex);
         }          
@@ -134,9 +135,9 @@ public class Tablas5By6B
 
         if((!(DecAPI == 0)) && (!(DecAPI == 0.5)))
         {
-            D1 = Otras.MasBajo(APIOBS);
-            D3 = Otras.MasAlto(APIOBS);
-            D2 = Otras.MasBajo(TEMPOBS);
+            D1 = Otras.MasBajo(APIOBS, myWriter);
+            D3 = Otras.MasAlto(APIOBS, myWriter);
+            D2 = Otras.MasBajo(TEMPOBS, myWriter);
             
             {
                 NuevaTabla5B nuevaTabla5b = new NuevaTabla5B();
@@ -152,7 +153,7 @@ public class Tablas5By6B
             
             if(!(DecTemp == 0) && !(DecTemp == 0.5))
             {
-                D4 = Otras.MasAlto(TEMPOBS);
+                D4 = Otras.MasAlto(TEMPOBS, myWriter);
 
                 {
                     NuevaTabla5B nuevaTabla5b = new NuevaTabla5B();
@@ -164,14 +165,14 @@ public class Tablas5By6B
                     A4 = nuevaTabla5b.API60(D3, D4, myWriter);
                 }
 
-                B1 = Otras.Interpolar(D2, D4, A1, A2, TEMPOBS);
-                B2 = Otras.Interpolar(D2, D4, A3, A4, TEMPOBS);
+                B1 = Otras.Interpolar(D2, D4, A1, A2, TEMPOBS, myWriter);
+                B2 = Otras.Interpolar(D2, D4, A3, A4, TEMPOBS, myWriter);
 
-                Api60IntPol = Math.round(Otras.Interpolar(D1, D3, B1, B2, APIOBS));
+                Api60IntPol = Otras.round(Otras.Interpolar(D1, D3, B1, B2, APIOBS, myWriter), 1, myWriter);
             }
             else
             {
-                Api60IntPol = Math.round(Otras.Interpolar(D1, D3, A1, A3, APIOBS));
+                Api60IntPol = Otras.round(Otras.Interpolar(D1, D3, A1, A3, APIOBS, myWriter),1, myWriter);
             }
 
         }
@@ -179,8 +180,8 @@ public class Tablas5By6B
         {
             if(!(DecTemp == 0) && !(DecTemp == 0.5))
             {
-                D2 = Otras.MasBajo(TEMPOBS);
-                D4 = Otras.MasAlto(TEMPOBS);
+                D2 = Otras.MasBajo(TEMPOBS, myWriter);
+                D4 = Otras.MasAlto(TEMPOBS, myWriter);
                 
                 {
                     NuevaTabla5B nuevaTabla5b = new NuevaTabla5B();
@@ -192,7 +193,7 @@ public class Tablas5By6B
                     A3 = nuevaTabla5b.API60(APIOBS, D4, myWriter);
                 }                 
 
-                Api60IntPol = Math.round(Otras.Interpolar(D2, D4, A1, A3, TEMPOBS));
+                Api60IntPol = Math.round(Otras.Interpolar(D2, D4, A1, A3, TEMPOBS, myWriter));
             }
             else
             {

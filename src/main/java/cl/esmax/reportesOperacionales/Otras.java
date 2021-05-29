@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class Otras 
 {
-    static double Interpolar(double AA1, double AA2, double BB1, double BB2, double AA3, FileWriter archivo)
+    static double Interpolar(double AA1, double AA2, double BB1, double BB2, double AA3, FileWriterChap archivo)
     {
         double Interpolar;
         if(AA2 == AA1)
@@ -42,7 +42,7 @@ public class Otras
         return Interpolar;
     }
     
-    static double MasBajo(double NN, FileWriter archivo)
+    static double MasBajo(double NN, FileWriterChap archivo)
     {
         double MasBajo;
         float dec = (float)(NN - (int)(NN));
@@ -66,7 +66,7 @@ public class Otras
         return MasBajo;
     }
     
-    static double MasAlto(double NN, FileWriter archivo)
+    static double MasAlto(double NN, FileWriterChap archivo)
     {
         double MasAlto;
         float dec = (float)(NN - (int)(NN));
@@ -105,7 +105,7 @@ public class Otras
         return MasAlto;
     }
     
-    static public double round(double value, int places, FileWriter archivo) 
+    static public double round(double value, int places, FileWriterChap archivo) 
     {
         if (places < 0) throw new IllegalArgumentException();
 

@@ -5,7 +5,7 @@
  */
 package cl.esmax.reportesOperacionales;
 
-import java.io.FileWriter;
+//import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 public class Tablas5By6B 
 {
         
-    public double FactIntPol(double API60, double TEMPINT, FileWriter myWriter)
+    public double FactIntPol(double API60, double TEMPINT, FileWriterChap myWriter)
     {
             double FactIntPol = -11111111111d;
             
@@ -116,7 +116,7 @@ public class Tablas5By6B
     }
 
 
-    public double Api60IntPol(double APIOBS, double TEMPOBS, FileWriter myWriter)
+    public double Api60IntPol(double APIOBS, double TEMPOBS, FileWriterChap myWriter)
     {
         double Api60IntPol = -1111111111111d;
         

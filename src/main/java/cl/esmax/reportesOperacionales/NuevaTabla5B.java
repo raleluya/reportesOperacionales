@@ -5,7 +5,7 @@
  */
 package cl.esmax.reportesOperacionales;
 
-import java.io.FileWriter;
+//import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,9 +60,9 @@ public class NuevaTabla5B
     double API60;                           //INVENTADO   
     boolean retornoFuncion = false;         //INVENTADO
       
-    FileWriter archivo;                     //Inventado para seguimiento
+    FileWriterChap archivo;                     //Inventado para seguimiento
     
-    public double API60(double Api, double Degf, FileWriter archivo)
+    public double API60(double Api, double Degf, FileWriterChap archivo)
     {
         this.archivo = archivo;
         
@@ -987,7 +987,7 @@ public class NuevaTabla5B
         
       
         
-        public double RHO5B(double AAA, FileWriter archivo)
+        public double RHO5B(double AAA, FileWriterChap archivo)
         {
                 double RHO5B;
                 IDENOM = AAA + 1315;
@@ -1004,7 +1004,7 @@ public class NuevaTabla5B
                 return RHO5B;
         }
 
-        public final double MPY5B(double IX, double IY, double ISCALE, FileWriter archivo)
+        public final double MPY5B(double IX, double IY, double ISCALE, FileWriterChap archivo)
         {
                 double MPY5B;
                 double IU1 = 0;
@@ -1037,7 +1037,7 @@ public class NuevaTabla5B
 
         }
 
-        public final double ALF5B(double AAA, double BBB, double CCC, FileWriter archivo)
+        public final double ALF5B(double AAA, double BBB, double CCC, FileWriterChap archivo)
         {
                 double ALF5B;
                 double INUM = 0;
@@ -1068,7 +1068,7 @@ public class NuevaTabla5B
                 return ALF5B;
         }
         
-        public final double DIV5B(double AAA, double BBB, double CCC, FileWriter archivo)
+        public final double DIV5B(double AAA, double BBB, double CCC, FileWriterChap archivo)
         {
                 double DIV5B = 0;
                 double IRES1 = 0;
@@ -1094,7 +1094,7 @@ public class NuevaTabla5B
                 return DIV5B;
         }
         
-        public final double VCF5B(double AAA, double BBB, FileWriter archivo)
+        public final double VCF5B(double AAA, double BBB, FileWriterChap archivo)
         {
                 double VCF5B;
                 double ITERM1 = 0;

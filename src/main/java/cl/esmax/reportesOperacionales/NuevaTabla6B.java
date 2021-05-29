@@ -5,7 +5,7 @@
  */
 package cl.esmax.reportesOperacionales;
 
-import java.io.FileWriter;
+//import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  */
 public class NuevaTabla6B 
 {
-    FileWriter archivo;
+    FileWriterChap archivo;
     
     
     private long NBP1, NBP2, NBP3, NBP4;
@@ -43,7 +43,7 @@ public class NuevaTabla6B
     private double FactorApi;
 
 
-    double FactorApi(double API60, double Degf, FileWriter archivo) 
+    double FactorApi(double API60, double Degf, FileWriterChap archivo) 
     {
         this.archivo = archivo;
 
@@ -699,7 +699,7 @@ public class NuevaTabla6B
         CVCF = PVCF;       
     }
     
-    public double VCF6B(double AAA, double BBB, FileWriter archivo)
+    public double VCF6B(double AAA, double BBB, FileWriterChap archivo)
     {
         double ITERM1, ITERM2, ITERM3, ITERM4;
         double IX;
@@ -743,7 +743,7 @@ public class NuevaTabla6B
         return VCF6B;
     }   
     
-    public double MPYB(double AAA, double BBB, FileWriter archivo)
+    public double MPYB(double AAA, double BBB, FileWriterChap archivo)
     {
         double IU1, IU2;
         double K1, K2, K3;
@@ -777,7 +777,7 @@ public class NuevaTabla6B
         return MPYB;
     }
     
-    double ALPHAB(double AAA, double BBB, double CCC, FileWriter archivo)
+    double ALPHAB(double AAA, double BBB, double CCC, FileWriterChap archivo)
     {
         double INUM;
         double IALF1, IALF2, IALFS;
@@ -809,7 +809,7 @@ public class NuevaTabla6B
         return ALPHAB;
     }
     
-    public double SDIVB(double AAA, double BBB, FileWriter archivo)
+    public double SDIVB(double AAA, double BBB, FileWriterChap archivo)
     {
         double IRES1;
         double IRES2;
@@ -833,7 +833,7 @@ public class NuevaTabla6B
         return IRES1 * 10000 + IRES2;
     }
     
-    public double RHOB(double AAA, FileWriter archivo)
+    public double RHOB(double AAA, FileWriterChap archivo)
     {
         double IDENOM;
         IDENOM = AAA + 1315;
